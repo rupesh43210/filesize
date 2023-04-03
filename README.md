@@ -14,12 +14,12 @@ Before running the script, you need to have Python 3 installed on your system. I
 You can install these libraries using `pip`:
 
 ```bash
-pip install tabulate termcolor
+pip3 install tabulate termcolor
 
 Usage
 To run the script, execute the following command in your terminal or command prompt:
 
-python file_size.py [options]
+python3 file_size.py [options]
 
 
 Options
@@ -30,7 +30,7 @@ Options
 
 Example
 
-python file_size.py -d 1 -ss 1MB -o output.txt
+python3 file_size.py -d 1 -ss 1MB -o output.txt
 
 This command will scan the current directory with a depth of 1, skipping files and folders smaller than 1MB, and output the result to output.txt.
 

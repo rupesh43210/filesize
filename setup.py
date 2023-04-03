@@ -4,7 +4,7 @@ import inspect
 
 def install_dependencies():
     try:
-        os.system("which pip3 || sudo apt-get install python3-pip")
+        os.system("which pip3 || sudo apt-get install python3-pip -y")
         os.system("pip3 install tabulate termcolor")
         print("\nPackages installed successfully.")
     except Exception as e:

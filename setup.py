@@ -1,12 +1,13 @@
 import os
 import sys
 import inspect
-import shutil
 
 def install_dependencies():
     try:
         os.system("which pip3 || sudo apt-get install python3-pip")
-        os.system("pip3 install tabulate termcolor")
+        os.system("pip3 install tabulate")
+        os.system("pip3 install termcolor")
+        os.system("pip3 install inspect")
         print("\nPackages installed successfully.")
     except Exception as e:
         print(f"Error installing packages: {e}")
@@ -34,15 +35,27 @@ def create_alias():
         print(f"Error creating alias: {e}")
         sys.exit(1)
 
+def update_bashrc_for_all_users():
+    try:
+        file_size_path = os.path.abspath(inspect.getfile(inspect.currentframe()))
+        file_size_path = os.path.join(os.path.dirname(file_size_path), "file_size.py")
+        with open("/etc/profile.d/filesize.sh", "w") as f:
+            f.write(f"path={file_size_path}\n")
+            f.write("if [ -f \"$path\" ]\n")
+            f.write("then\n")
+            f.write("    echo \"alias filesize='sudo python3 $path'\" >> /etc/bash.bashrc\n")
+            f.write("fi\n")
+        os.system("sudo chmod +x /etc/profile.d/filesize.sh")
+        print("\n/etc/bash.bashrc updated for all users.")
+    except Exception as e:
+        print(f"Error updating /etc/bash.bashrc for all users: {e}")
+        sys.exit(1)
+
 if __name__ == "__main__":
     install_dependencies()
     create_alias()
-    tabulate_path = shutil.which("tabulate")
-    if not tabulate_path:
-        tabulate_path = os.path.join(os.path.dirname(sys.executable), "tabulate")
-    if tabulate_path and os.path.dirname(tabulate_path) not in os.environ['PATH'].split(os.pathsep):
-        os.environ['PATH'] = os.environ['PATH'] + os.pathsep + os.path.dirname(tabulate_path)
     if 'bash' in os.environ['SHELL']:
         os.system("bash -c 'source ~/.bashrc'")
     elif 'zsh' in os.environ['SHELL']:
         os.system("zsh -c 'source ~/.zshrc'")
+    update_bashrc_for_all_users()

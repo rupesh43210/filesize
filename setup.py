@@ -34,11 +34,9 @@ def create_alias():
         sys.exit(1)
 
 if __name__ == "__main__":
-    reload_cmd = ""
     install_dependencies()
     create_alias()
     if 'bash' in os.environ['SHELL']:
-        reload_cmd = "source ~/.bashrc"
+        os.system("bash -c 'source ~/.bashrc'")
     elif 'zsh' in os.environ['SHELL']:
-        reload_cmd = "source ~/.zshrc"
-    os.system(reload_cmd)
+        os.system("zsh -c 'source ~/.zshrc'")

@@ -16,8 +16,10 @@ def create_alias():
         shell = os.environ['SHELL']
         if 'bash' in shell:
             config_file = os.path.expanduser('~/.bashrc')
+            reload_cmd = "source ~/.bashrc"
         elif 'zsh' in shell:
             config_file = os.path.expanduser('~/.zshrc')
+            reload_cmd = "source ~/.zshrc"
         else:
             print("Unsupported shell. Please add the alias manually.")
             return
@@ -36,3 +38,4 @@ def create_alias():
 if __name__ == "__main__":
     install_dependencies()
     create_alias()
+    os.system(reload_cmd)

@@ -62,5 +62,5 @@ if __name__ == "__main__":
     if 'bash' in os.environ['SHELL']:
         os.system("sudo bash -c 'source ~/.bashrc'")
     elif 'zsh' in os.environ['SHELL']:
-os.system("sudo zsh -c 'source ~/.zshrc'")
+        os.system("sudo zsh -c 'source ~/.zshrc'")
 update_bashrc_for_all_users()

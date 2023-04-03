@@ -1,10 +1,11 @@
 import os
 import sys
 import inspect
+import shutil
 
 def install_dependencies():
     try:
-        os.system("which pip3 || sudo apt-get install python3-pip -y")
+        os.system("which pip3 || sudo apt-get install python3-pip")
         os.system("pip3 install tabulate termcolor")
         print("\nPackages installed successfully.")
     except Exception as e:
@@ -36,6 +37,11 @@ def create_alias():
 if __name__ == "__main__":
     install_dependencies()
     create_alias()
+    tabulate_path = shutil.which("tabulate")
+    if not tabulate_path:
+        tabulate_path = os.path.join(os.path.dirname(sys.executable), "tabulate")
+    if tabulate_path and os.path.dirname(tabulate_path) not in os.environ['PATH'].split(os.pathsep):
+        os.environ['PATH'] = os.environ['PATH'] + os.pathsep + os.path.dirname(tabulate_path)
     if 'bash' in os.environ['SHELL']:
         os.system("bash -c 'source ~/.bashrc'")
     elif 'zsh' in os.environ['SHELL']:

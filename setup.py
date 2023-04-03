@@ -4,8 +4,8 @@ import inspect
 
 def install_dependencies():
     try:
-        os.system("which pip3 || sudo apt-get install python3-pip")
-        os.system("pip3 install termcolor")
+        os.system("which pip3 || sudo apt-get install python3-pip -y")
+        os.system("pip3 install tabulate")
         os.system("pip3 install termcolor")
         print("\nPackages installed successfully.")
     except Exception as e:
@@ -57,4 +57,4 @@ if __name__ == "__main__":
         os.system("sudo bash -c 'source ~/.bashrc'")
     elif 'zsh' in os.environ['SHELL']:
         os.system("sudo zsh -c 'source ~/.zshrc'")
-    update_bashrc_for_all
+    update_bashrc_for_all_users()

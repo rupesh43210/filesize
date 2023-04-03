@@ -2,6 +2,11 @@ import os
 import sys
 import inspect
 
+def check_sudo():
+    if os.geteuid() != 0:
+        print("This script requires root privileges. Please run as sudo.")
+        sys.exit(1)
+
 def install_dependencies():
     try:
         os.system("which pip3 || sudo apt-get install python3-pip -y")
@@ -51,10 +56,11 @@ def update_bashrc_for_all_users():
         sys.exit(1)
 
 if __name__ == "__main__":
+    check_sudo()
     install_dependencies()
     create_alias()
     if 'bash' in os.environ['SHELL']:
         os.system("sudo bash -c 'source ~/.bashrc'")
-    elif 'zsh' in os.environ['SHELL']:
-        os.system("sudo zsh -c 'source ~/.zshrc'")
-    update_bashrc_for_all_users()
+    elif 'zsh' in os.environ['SHELL':
+os.system("sudo zsh -c 'source ~/.zshrc'")
+update_bashrc_for_all_users()
